@@ -37,10 +37,11 @@ def main():
         clear()
         print("\n\nup next:", filename.name)
         input("\n\nPress Enter to start")
-        command = f"impressive -a {args.duration} --autoquit --duration {args.duration}"
-        command += f" --time-display --fontsize 28"
-        command += f" --font /usr/share/fonts/truetype/roboto/unhinted/RobotoTTF/Roboto-Regular.ttf \"{filename}\""
-        os.system(command)
+        command = ["impressive", "-a", f"{args.duration}", "--autoquit", "--duration", f"{args.duration}"]
+        command += ["--time-display", "--fontsize", "28"]
+        command += ["--font", "/usr/share/fonts/truetype/roboto/unhinted/RobotoTTF/Roboto-Regular.ttf"]
+        command += [f"{filename}"]
+        subprocess.run(command)
 
 
 if __name__ == "__main__":
