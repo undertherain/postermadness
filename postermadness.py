@@ -1,9 +1,15 @@
+"""
+Poster Madness is a script to support lightning talks-style presentation
+it displays pdf files from source_dir directory one after another automatically
+with auto-advance and nice progress bar
+
+imressive is used as a pdf viewer
+"""
+
 from pathlib import Path
 import os
+import argparse
 import subprocess
-
-path_source = "source"
-duration = 70
 
 
 def clear():
@@ -21,11 +27,17 @@ def check_env():
 def main():
     check_env()
 
-    for filename in sorted(Path(path_source).glob('**/*.pdf')):
+    parser = argparse.ArgumentParser(description='Start poster madness!')
+    parser.add_argument('source_dir', type=str, help='an integer for the accumulator')
+    parser.add_argument('--duration', type=int, default=60, help='duration of one presentation')
+
+    args = parser.parse_args()
+
+    for filename in sorted(Path(args.source_dir).glob('**/*.pdf')):
         clear()
-        print("up next:", filename.name)
-        input("Press Enter to start")
-        command = f"impressive -a {duration} --autoquit --duration {duration}"
+        print("\n\nup next:", filename.name)
+        input("\n\nPress Enter to start")
+        command = f"impressive -a {args.duration} --autoquit --duration {args.duration}"
         command += f" --time-display --fontsize 28"
         command += f" --font /usr/share/fonts/truetype/roboto/unhinted/RobotoTTF/Roboto-Regular.ttf \"{filename}\""
         os.system(command)
