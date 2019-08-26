@@ -8,7 +8,7 @@ duration = 70
 
 def clear():
     # check and make call for specific operating system 
-    os.system('clear' if os.name =='posix' else 'cls')
+    subprocess.run(['clear'] if os.name =='posix' else 'cls')
 
 
 def check_env():
